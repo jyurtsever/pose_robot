@@ -38,8 +38,8 @@ def main():
                 client.send(image)
                 ### Recieve Array
                 data = s.recv(4096)
-                out= pickle.loads(data)
-                print(out)
+                out = pickle.loads(data)
+                print(out.shape)
             else:
                 break
 

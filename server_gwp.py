@@ -1,6 +1,7 @@
 import pickle
 import socket
 import struct
+import caffe2
 import imagiz
 import cv2
 
@@ -54,7 +55,7 @@ def forward(frame):
     net.setInput(inpBlob)
 
     out = net.forward()
-
+    return out
 
 def main():
     print("Connecting...")
@@ -66,7 +67,7 @@ def main():
             frame = cv2.imdecode(message.image,1)
             ###Send
             out = forward(frame)
-            data_string = pickle.dumps(frame.shape)
+            data_string = pickle.dumps(out)
             conn.send(data_string)
             cv2.waitKey(1)
         except KeyboardInterrupt:
@@ -80,8 +81,11 @@ if __name__ == '__main__':
     protoFile = "pose/coco/pose_deploy_linevec.prototxt"
     weightsFile = "pose/coco/pose_iter_440000.caffemodel"
 
+    caffe2.set_mode_gpu()
+    caffe2.set_device(0)
+
     # Read the network into Memory
-    net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
+    net = caffe2(protoFile, weightsFile)
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
