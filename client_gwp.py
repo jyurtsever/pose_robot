@@ -13,5 +13,11 @@ clientsocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 clientsocket.connect((HOST, PORT))
 while True:
     ret,frame=cap.read()
-    data = pickle.dumps(frame) ### new code
-    clientsocket.sendall(struct.pack("L", len(data))+data) ### new code
+    # Serialize frame
+    data = pickle.dumps(frame)
+
+    # Send message length first
+    message_size = struct.pack("L", len(data)) ### CHANGED
+
+    # Then data
+    clientsocket.sendall(message_size + data)
