@@ -24,7 +24,7 @@ while True:
 
     # Retrieve message size
     while len(data) < payload_size:
-        data += conn.recv(1024)
+        data += conn.recv(4096)
 
     packed_msg_size = data[:payload_size]
     data = data[payload_size:]
@@ -32,7 +32,7 @@ while True:
 
     # Retrieve all data based on message size
     while len(data) < msg_size:
-        data += conn.recv(1024)
+        data += conn.recv(4096)
 
     frame_data = data[:msg_size]
     data = data[msg_size:]
