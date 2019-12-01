@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     s.bind((HOST, PORT))
     print('Socket bind complete')
-    # s.listen(10)
-    # print('Socket now listening')
+    s.listen(1)
+    print('Socket now listening')
     conn, addr = s.accept()
     main()
