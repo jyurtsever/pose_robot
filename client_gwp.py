@@ -23,7 +23,7 @@ PORT = 8089
 #     # Then data
 #     clientsocket.sendall(message_size + data)
 
-client=imagiz.Client("cc1",server_ip=HOST)
+client=imagiz.Client("cc1",server_ip=HOST, server_port=PORT)
 vid=cv2.VideoCapture(0)
 encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
 

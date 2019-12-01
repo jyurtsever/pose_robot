@@ -45,7 +45,7 @@ PORT = 8089
 #     # cv2.waitKey(1)
 
 
-server=imagiz.Server()
+server=imagiz.Server(port=PORT)
 while True:
     message=server.receive()
     frame=cv2.imdecode(message.image,1)
