@@ -37,7 +37,7 @@ def main():
                 r, image = cv2.imencode('.jpg', frame, encode_param)
                 client.send(image)
                 ### Recieve Array
-                data = s.recv(4096)
+                data = s.recv(4096*2)
                 out = pickle.loads(data)
                 print(out.shape)
             else:

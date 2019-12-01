@@ -66,7 +66,6 @@ def main():
             frame = cv2.imdecode(message.image,1)
             ###Send
             out = forward(frame)
-            print(type(out))
             data_string = pickle.dumps(out)
             conn.send(data_string)
             cv2.waitKey(1)
