@@ -43,17 +43,20 @@ PORT = 8089
 #     # Display
 #     # cv2.imshow('frame', frame)
 #     # cv2.waitKey(1)
+def main():
+    print("Connecting...")
+    server = imagiz.Server(port=PORT)
+    print("Connected...")
+    while True:
+        try:
+            message = server.receive()
+            frame = cv2.imdecode(message.image,1)
+            print(frame.shape)
+            cv2.waitKey(1)
+        except KeyboardInterrupt:
+            cv2.destroyAllWindows()
+            break
+    print("Session Ended")
 
-print("Connecting...")
-server = imagiz.Server(port=PORT)
-print("Connected...")
-while True:
-    try:
-        message = server.receive()
-        frame = cv2.imdecode(message.image,1)
-        print(frame.shape)
-        cv2.waitKey(1)
-    except KeyboardInterrupt:
-        cv2.destroyAllWindows()
-        break
-print("Session Ended")
+if __name__ == '__main__':
+    main()
