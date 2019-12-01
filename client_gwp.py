@@ -4,7 +4,7 @@ import socket
 import sys
 import pickle
 import struct ### new code
-HOST = 'jyurtsever@latte.csua.berkeley.edu'
+HOST = '128.32.112.46'
 PORT = 8089
 
 
@@ -14,4 +14,4 @@ clientsocket.connect((HOST, PORT))
 while True:
     ret,frame=cap.read()
     data = pickle.dumps(frame) ### new code
-    clientsocket.sendall(struct.pack("H", len(data))+data) ### new code
+    clientsocket.sendall(struct.pack("L", len(data))+data) ### new code
