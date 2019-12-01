@@ -44,6 +44,18 @@ ARR_PORT = 8090
 #     # Display
 #     # cv2.imshow('frame', frame)
 #     # cv2.waitKey(1)
+def forward(frame):
+    inWidth = frame.shape[1]
+    inHeight = frame.shape[0]
+    inpBlob = cv2.dnn.blobFromImage(frame, scalefactor=1.0 / 255, size=(inWidth, inHeight), mean=(0, 0, 0), swapRB=False,
+                                   crop=False)
+
+    # Set the prepared object as the input blob of the network
+    net.setInput(inpBlob)
+
+    out = net.forward()
+
+
 def main():
     print("Connecting...")
     server = imagiz.Server(port=IMG_PORT)
@@ -53,6 +65,7 @@ def main():
             message = server.receive()
             frame = cv2.imdecode(message.image,1)
             ###Send
+            out = forward(frame)
             data_string = pickle.dumps(frame.shape)
             conn.send(data_string)
             cv2.waitKey(1)
@@ -60,9 +73,16 @@ def main():
             s.close()
             cv2.destroyAllWindows()
             break
-    print("Session Ended")
+    print("\nSession Ended")
 
 if __name__ == '__main__':
+    # Specify the paths for the 2 files
+    protoFile = "pose/coco/pose_deploy_linevec.prototxt"
+    weightsFile = "pose/coco/pose_iter_440000.caffemodel"
+
+    # Read the network into Memory
+    net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
 
