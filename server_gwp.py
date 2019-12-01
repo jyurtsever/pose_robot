@@ -39,7 +39,7 @@ while True:
 
     # Extract frame
     frame = pickle.loads(frame_data)
-
+    print(frame.shape)
     # Display
-    cv2.imshow('frame', frame)
-    cv2.waitKey(1)
+    # cv2.imshow('frame', frame)
+    # cv2.waitKey(1)
