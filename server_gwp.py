@@ -5,7 +5,8 @@ import imagiz
 import cv2
 
 HOST = ''
-PORT = 8089
+IMG_PORT = 8089
+ARR_PORT = 8090
 
 # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # print('Socket created')
@@ -45,7 +46,7 @@ PORT = 8089
 #     # cv2.waitKey(1)
 def main():
     print("Connecting...")
-    server = imagiz.Server(port=PORT)
+    server = imagiz.Server(port=IMG_PORT)
     print("Connected...")
     while True:
         try:
@@ -65,7 +66,7 @@ if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
 
-    s.bind((HOST, PORT))
+    s.bind((HOST, ARR_PORT))
     print('Socket bind complete')
     s.listen(1)
     print('Socket now listening')

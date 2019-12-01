@@ -6,7 +6,8 @@ import pickle
 import struct ### new code
 import imagiz
 HOST = '128.32.112.46'
-PORT = 8089
+IMG_PORT = 8089
+ARR_PORT = 8090
 
 
 # cap=cv2.VideoCapture(0)
@@ -24,7 +25,7 @@ PORT = 8089
 #     clientsocket.sendall(message_size + data)
 
 def main():
-    client = imagiz.Client("cc1",server_ip=HOST, server_port=PORT)
+    client = imagiz.Client("cc1",server_ip=HOST, server_port=IMG_PORT)
     vid = cv2.VideoCapture(0)
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 10]
 
@@ -59,5 +60,5 @@ def rescale(img, scale):
 
 if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((HOST, PORT))
+    s.connect((HOST, ARR_PORT))
     main()
