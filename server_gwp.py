@@ -51,12 +51,23 @@ def main():
         try:
             message = server.receive()
             frame = cv2.imdecode(message.image,1)
-            print(frame.shape)
+            ###Send
+            data_string = pickle.dumps(frame.shape)
+            conn.send(data_string)
             cv2.waitKey(1)
         except KeyboardInterrupt:
+            s.close()
             cv2.destroyAllWindows()
             break
     print("Session Ended")
 
 if __name__ == '__main__':
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print('Socket created')
+
+    s.bind((HOST, PORT))
+    print('Socket bind complete')
+    # s.listen(10)
+    # print('Socket now listening')
+    conn, addr = s.accept()
     main()

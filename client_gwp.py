@@ -35,9 +35,15 @@ def main():
             if r:
                 r, image = cv2.imencode('.jpg', frame, encode_param)
                 client.send(image)
+                ### Recieve Array
+                data = s.recv(4096)
+                data_arr = pickle.loads(data)
+                print(data_arr)
             else:
                 break
+
         except KeyboardInterrupt:
+            s.close()
             vid.release()
             cv2.destroyAllWindows()
             break
@@ -52,4 +58,6 @@ def rescale(img, scale):
     return resized
 
 if __name__ == '__main__':
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST, PORT))
     main()
