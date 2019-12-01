@@ -1,7 +1,6 @@
 import pickle
 import socket
 import struct
-import caffe2
 import imagiz
 import cv2
 
@@ -81,11 +80,8 @@ if __name__ == '__main__':
     protoFile = "pose/coco/pose_deploy_linevec.prototxt"
     weightsFile = "pose/coco/pose_iter_440000.caffemodel"
 
-    caffe2.set_mode_gpu()
-    caffe2.set_device(0)
-
     # Read the network into Memory
-    net = caffe2(protoFile, weightsFile)
+    net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
