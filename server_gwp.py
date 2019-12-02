@@ -94,8 +94,8 @@ if __name__ == '__main__':
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
-    model = DeepPose(57)
     checkpoint = torch.load(pth_file)
+    model = DeepPose(57)
     model.load_state_dict(checkpoint['model_state_dict'])
     # model.cuda()
     # model.eval()
