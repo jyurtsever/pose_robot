@@ -51,6 +51,7 @@ def forward(frame):
                                    crop=False)
 
     # Set the prepared object as the input blob of the network
+    print(inpBlob.shape)
     net.setInput(inpBlob)
 
     out = net.forward()
