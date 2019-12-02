@@ -1,7 +1,7 @@
 import pickle
 import socket
 import struct
-from caffemodel2pytorch import caffemodel2pytorch
+#from caffemodel2pytorch import caffemodel2pytorch
 from models import *
 import torchvision
 import torch.nn as nn
@@ -95,10 +95,10 @@ if __name__ == '__main__':
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
     model = DeepPose(57)
-    #checkpoint = torch.load(pth_file)
-    #model.load_state_dict(checkpoint['model_state_dict'])
-    model.cuda()
-    model.eval()
+    checkpoint = torch.load(pth_file)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    # model.cuda()
+    # model.eval()
     print("Model created")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
