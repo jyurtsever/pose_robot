@@ -60,6 +60,7 @@ def forward(frame):
     # net.setInput(inpBlob)
     #
     # out = net.forward()
+    inpBlob = torch.from_numpy(inpBlob).cuda()
     out = model(inpBlob)
     return out
 
@@ -94,8 +95,8 @@ if __name__ == '__main__':
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
     model = DeepPose(57)
-    checkpoint = torch.load(pth_file)
-    model.load_state_dict(checkpoint['model_state_dict'])
+    #checkpoint = torch.load(pth_file)
+    #model.load_state_dict(checkpoint['model_state_dict'])
     model.cuda()
     model.eval()
     print("Model created")
