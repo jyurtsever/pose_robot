@@ -84,10 +84,11 @@ if __name__ == '__main__':
     # Specify the paths for the 2 files
     protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
     weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
+    link = 'https://raw.githubusercontent.com/BVLC/caffe/master/src/caffe/proto/caffe.proto'
 
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
-    model = caffemodel2pytorch.Net(prototxt=protoFile, weights=weightsFile)
+    model = caffemodel2pytorch.Net(prototxt=protoFile, weights=weightsFile, caffe_proto=link)
     model.cuda()
     model.eval()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
