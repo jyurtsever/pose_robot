@@ -82,8 +82,8 @@ def main():
 
 if __name__ == '__main__':
     # Specify the paths for the 2 files
-    protoFile = "pose/coco/pose_deploy_linevec.prototxt"
-    weightsFile = "pose/coco/pose_iter_440000.caffemodel"
+    protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
+    weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
 
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
