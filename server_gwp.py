@@ -94,11 +94,12 @@ if __name__ == '__main__':
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
-    checkpoint = torch.load(pth_file)
-    model = DeepPose(57)
-    model.load_state_dict(checkpoint['model_state_dict'])
-    # model.cuda()
-    # model.eval()
+    checkpoint = torch.load(pth_file, map_location='cuda:0')['model_state']
+    #print(checkpoint)
+    model = DeepPose(17)
+    model.load_state_dict(checkpoint)
+    model.cuda()
+    model.eval()
     print("Model created")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
