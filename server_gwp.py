@@ -2,6 +2,9 @@ import pickle
 import socket
 import struct
 from caffemodel2pytorch import caffemodel2pytorch
+from models import *
+import torchvision
+import torch.nn as nn
 import imagiz
 import torch
 import cv2
@@ -85,12 +88,17 @@ if __name__ == '__main__':
     protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
     weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
     link = 'https://raw.githubusercontent.com/BVLC/caffe/master/src/caffe/proto/caffe.proto'
+    pth_file = 'pose/coco/deeppose-COCO.pth'
 
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
-    model = caffemodel2pytorch.Net(prototxt=protoFile, weights=weightsFile, caffe_proto=link)
+    print("Initializing Model")
+    model = DeepPose(57)
+    checkpoint = torch.load(pth_file)
+    model.load_state_dict(checkpoint['model_state_dict'])
     model.cuda()
     model.eval()
+    print("Model created")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
 
