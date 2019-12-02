@@ -1,7 +1,9 @@
 import pickle
 import socket
 import struct
+from caffemodel2pytorch import caffemodel2pytorch
 import imagiz
+import torch
 import cv2
 
 HOST = ''
@@ -52,9 +54,10 @@ def forward(frame):
 
     # Set the prepared object as the input blob of the network
     print(inpBlob.shape)
-    net.setInput(inpBlob)
-
-    out = net.forward()
+    # net.setInput(inpBlob)
+    #
+    # out = net.forward()
+    out = model(inpBlob)
     return out
 
 def main():
@@ -67,6 +70,7 @@ def main():
             frame = cv2.imdecode(message.image,1)
             ###Send
             out = forward(frame)
+            print(out)
             data_string = pickle.dumps(out.shape)
             conn.send(data_string)
             cv2.waitKey(1)
@@ -82,8 +86,10 @@ if __name__ == '__main__':
     weightsFile = "pose/coco/pose_iter_440000.caffemodel"
 
     # Read the network into Memory
-    net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
-
+    # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
+    model = caffemodel2pytorch.Net(prototxt=protoFile, weights=weightsFile)
+    model.cuda()
+    model.eval()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
 
