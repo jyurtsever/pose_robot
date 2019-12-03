@@ -124,6 +124,14 @@ def main():
     print("\nSession Ended")
 
 if __name__ == '__main__':
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print('Socket created')
+
+    s.bind((HOST, ARR_PORT))
+    print('Socket bind complete')
+    s.listen(1)
+    print('Socket now listening')
+    conn, addr = s.accept()
     # Specify the paths for the 2 files
     # protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
     # weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
@@ -146,12 +154,5 @@ if __name__ == '__main__':
     # model.cuda()
     # model.eval()
     print("Model created")
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print('Socket created')
 
-    s.bind((HOST, ARR_PORT))
-    print('Socket bind complete')
-    s.listen(1)
-    print('Socket now listening')
-    conn, addr = s.accept()
     main()
