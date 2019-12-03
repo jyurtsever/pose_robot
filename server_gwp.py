@@ -11,8 +11,8 @@ import torch
 import cv2
 
 HOST = ''
-IMG_PORT = 9000
-ARR_PORT = 9001
+IMG_PORT = 8098
+ARR_PORT = 8097
 
 body_parts = ['Nose', 'Neck', 'Right Shoulder', 'Right Elbow', 'Right Wrist',
               'Left Shoulder', 'Left Elbow', 'Left Wrist', 'Right Hip', 'Right Knee', 'Right Ankle',
