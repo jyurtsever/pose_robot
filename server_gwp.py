@@ -14,6 +14,10 @@ HOST = ''
 IMG_PORT = 8089
 ARR_PORT = 8090
 
+body_parts = ['Nose', 'Neck', 'Right Shoulder', 'Right Elbow', 'Right Wrist',
+              'Left Shoulder', 'Left Elbow', 'Left Wrist', 'Right Hip', 'Right Knee', 'Right Ankle',
+              'Left Hip', 'Left Knee', 'LAnkle', 'Right Eye', 'Left Eye', 'Right Ear', 'Left Ear', 'Background']
+
 # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # print('Socket created')
 #
@@ -68,6 +72,38 @@ def forward(frame):
     # out = model(inpBlob)
     return out['net_output']
 
+def get_points(out, frame):
+    inWidth = frame.shape[1]
+    inHeight = frame.shape[0]
+
+    H = out.shape[2]
+    W = out.shape[3]
+    # Empty list to store the detected keypoints
+    threshold = .2
+    points = []
+    for i in range(len(body_parts)):
+        # confidence map of corresponding body's part.
+        probMap = out[0, i, :, :]
+
+        # Find global maxima of the probMap.
+        minVal, prob, minLoc, point = cv2.minMaxLoc(probMap)
+
+        # Scale the point to fit on the original image
+        x = (inWidth * point[0]) / W
+        y = (inHeight * point[1]) / H
+
+        if prob > threshold:
+            # cv2.circle(frame, (int(x), int(y)), inWidth // 50, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
+            # cv2.putText(frame, "{}".format(body_parts[i]), (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, .4, (0, 0, 255),
+            #             1,
+            #             lineType=cv2.LINE_AA)
+
+            # Add the point to the list if the probability is greater than the threshold
+            points.append((int(x), int(y)))
+        else:
+            points.append(None)
+    return points
+
 def main():
     print("Connecting...")
     server = imagiz.Server(port=IMG_PORT)
@@ -78,7 +114,7 @@ def main():
             frame = cv2.imdecode(message.image,1)
             ###Send
             out = forward(frame)
-            data_string = pickle.dumps(out)
+            data_string = pickle.dumps(get_points(out, frame))
             conn.send(data_string)
             cv2.waitKey(1)
         except KeyboardInterrupt:
