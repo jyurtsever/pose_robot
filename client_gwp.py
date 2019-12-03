@@ -31,12 +31,12 @@ body_parts = ['Nose', 'Neck', 'Right Shoulder', 'Right Elbow', 'Right Wrist',
 def main():
     client = imagiz.Client("cc1",server_ip=HOST, server_port=IMG_PORT)
     vid = cv2.VideoCapture(0)
-    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 10]
+    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
 
     while True:
         try:
             r, frame = vid.read()
-            frame = rescale(frame, .75)
+            frame = rescale(frame, .5)
             if r:
                 r, image = cv2.imencode('.jpg', frame, encode_param)
                 client.send(image)
