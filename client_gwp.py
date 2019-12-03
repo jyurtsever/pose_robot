@@ -6,8 +6,8 @@ import pickle
 import struct ### new code
 import imagiz
 HOST = '128.32.112.46'
-IMG_PORT = 8096
-ARR_PORT = 8095
+IMG_PORT = 9000
+ARR_PORT = 9001
 
 
 # cap=cv2.VideoCapture(0)
@@ -65,8 +65,8 @@ def show_points(points, frame):
                         lineType=cv2.LINE_AA)
 
     cv2.imshow("Output-Keypoints", frame)
-    cv2.waitKey(2)
-    cv2.destroyAllWindows()
+    cv2.waitKey(1)
+ #   cv2.destroyAllWindows()
 
 
 def rescale(img, scale):
