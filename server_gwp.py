@@ -136,8 +136,8 @@ if __name__ == '__main__':
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
-    #caffe.set_device(0)
-    caffe.set_mode_cpu()
+    caffe.set_device(0)
+    caffe.set_mode_gpu()
     net = caffe.Net(protoFile, weightsFile, caffe.TEST)
     # checkpoint = torch.load(pth_file, map_location='cuda:0')['model_state']
     # #print(checkpoint)
