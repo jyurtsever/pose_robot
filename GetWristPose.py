@@ -11,7 +11,7 @@ def repeat():
     ret, frame = cap.read()
     # print(frame.shape)
     # Specify the input image dimensions
-    frame = rescale(frame, .3)
+    frame = rescale(frame, .6)
     inWidth = frame.shape[1]
     inHeight = frame.shape[0]
     body_parts = ['Nose', 'Neck', 'Right Shoulder', 'Right Elbow', 'Right Wrist',
