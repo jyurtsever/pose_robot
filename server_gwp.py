@@ -58,7 +58,8 @@ def forward(frame):
 
     # Set the prepared object as the input blob of the network
     # print(inpBlob.shape)
-    net.setInput(inpBlob)
+    net.blobs['data'].data[...] = inpBlob
+    # net.setInput(inpBlob)
 
     out = net.forward()
     # inpBlob = torch.from_numpy(inpBlob).cuda()
