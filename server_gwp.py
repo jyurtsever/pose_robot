@@ -2,6 +2,7 @@ import pickle
 import socket
 import struct
 #from caffemodel2pytorch import caffemodel2pytorch
+import caffe
 from models import *
 import torchvision
 import torch.nn as nn
@@ -56,12 +57,12 @@ def forward(frame):
                                    crop=False)
 
     # Set the prepared object as the input blob of the network
-    print(inpBlob.shape)
-    # net.setInput(inpBlob)
-    #
-    # out = net.forward()
-    inpBlob = torch.from_numpy(inpBlob).cuda()
-    out = model(inpBlob)
+    # print(inpBlob.shape)
+    net.setInput(inpBlob)
+
+    out = net.forward()
+    # inpBlob = torch.from_numpy(inpBlob).cuda()
+    # out = model(inpBlob)
     return out
 
 def main():
@@ -94,12 +95,15 @@ if __name__ == '__main__':
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
-    checkpoint = torch.load(pth_file, map_location='cuda:0')['model_state']
-    #print(checkpoint)
-    model = DeepPose(17)
-    model.load_state_dict(checkpoint)
-    model.cuda()
-    model.eval()
+    caffe.set_device(0)
+    caffe.set_mode_gpu()
+    net = caffe.Net(protoFile, weightsFile, caffe.TEST)
+    # checkpoint = torch.load(pth_file, map_location='cuda:0')['model_state']
+    # #print(checkpoint)
+    # model = DeepPose(17)
+    # model.load_state_dict(checkpoint)
+    # model.cuda()
+    # model.eval()
     print("Model created")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
