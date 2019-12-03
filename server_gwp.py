@@ -70,7 +70,7 @@ def forward(frame):
     out = net.forward()
     # inpBlob = torch.from_numpy(inpBlob).cuda()
     # out = model(inpBlob)
-    return out['net_output']
+    return out#['net_output']
 
 def get_points(out, frame):
     inWidth = frame.shape[1]
