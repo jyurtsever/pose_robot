@@ -6,8 +6,8 @@ import pickle
 import struct ### new code
 import imagiz
 HOST = '128.32.112.46'
-IMG_PORT = 8089
-ARR_PORT = 8090
+IMG_PORT = 8099
+ARR_PORT = 8098
 
 
 # cap=cv2.VideoCapture(0)
