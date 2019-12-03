@@ -64,7 +64,7 @@ def forward(frame):
     # print(inpBlob.shape)
     # print(net.blobs)
     net.blobs['image'].reshape(1,3,inHeight,inWidth)
-    net.blobs['image'].data[...] = inpBlob
+    net.blobs['image'] = inpBlob
     # net.setInput(inpBlob)
 
     out = net.forward()
@@ -131,10 +131,10 @@ if __name__ == '__main__':
     print('Socket bind complete')
 
     # Specify the paths for the 2 files
-    # protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
-    # weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
-    protoFile = "pose/mpi/pose_deploy_linevec_faster_4_stages.prototxt"
-    weightsFile = "pose/mpi/pose_iter_160000.caffemodel"
+    protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
+    weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
+    # protoFile = "pose/mpi/pose_deploy_linevec_faster_4_stages.prototxt"
+    # weightsFile = "pose/mpi/pose_iter_160000.caffemodel"
 
     link = 'https://raw.githubusercontent.com/BVLC/caffe/master/src/caffe/proto/caffe.proto'
     pth_file = 'pose/coco/deeppose-COCO.pth'
