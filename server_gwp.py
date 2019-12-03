@@ -58,13 +58,15 @@ def forward(frame):
 
     # Set the prepared object as the input blob of the network
     # print(inpBlob.shape)
-    net.blobs['data'].data[...] = inpBlob
+    # print(net.blobs)
+    net.blobs['image'].reshape(1,3,inHeight,inWidth)
+    net.blobs['image'].data[...] = inpBlob
     # net.setInput(inpBlob)
 
     out = net.forward()
     # inpBlob = torch.from_numpy(inpBlob).cuda()
     # out = model(inpBlob)
-    return out
+    return out['net_output']
 
 def main():
     print("Connecting...")
@@ -76,8 +78,7 @@ def main():
             frame = cv2.imdecode(message.image,1)
             ###Send
             out = forward(frame)
-            print(out)
-            data_string = pickle.dumps(out.shape)
+            data_string = pickle.dumps(out)
             conn.send(data_string)
             cv2.waitKey(1)
         except KeyboardInterrupt:
