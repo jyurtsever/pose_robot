@@ -79,7 +79,7 @@ def get_points(out, frame):
     H = out.shape[2]
     W = out.shape[3]
     # Empty list to store the detected keypoints
-    threshold = .10
+    threshold = .25
     points = []
     for i in range(len(body_parts)):
         # confidence map of corresponding body's part.
@@ -133,8 +133,8 @@ if __name__ == '__main__':
     # Read the network into Memory
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
-    caffe.set_device(0)
-    caffe.set_mode_gpu()
+    #caffe.set_device(0)
+    caffe.set_mode_cpu()
     net = caffe.Net(protoFile, weightsFile, caffe.TEST)
     # checkpoint = torch.load(pth_file, map_location='cuda:0')['model_state']
     # #print(checkpoint)
