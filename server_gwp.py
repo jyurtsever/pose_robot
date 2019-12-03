@@ -79,7 +79,7 @@ def get_points(out, frame):
     H = out.shape[2]
     W = out.shape[3]
     # Empty list to store the detected keypoints
-    threshold = .2
+    threshold = .10
     points = []
     for i in range(len(body_parts)):
         # confidence map of corresponding body's part.
