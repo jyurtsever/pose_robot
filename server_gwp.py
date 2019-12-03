@@ -125,8 +125,11 @@ def main():
 
 if __name__ == '__main__':
     # Specify the paths for the 2 files
-    protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
-    weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
+    # protoFile = 'pose/coco/pose_deploy_linevec.prototxt'
+    # weightsFile = 'pose/coco/pose_iter_440000.caffemodel'
+    protoFile = "pose/mpi/pose_deploy_linevec_faster_4_stages.prototxt"
+    weightsFile = "pose/mpi/pose_iter_160000.caffemodel"
+
     link = 'https://raw.githubusercontent.com/BVLC/caffe/master/src/caffe/proto/caffe.proto'
     pth_file = 'pose/coco/deeppose-COCO.pth'
 
