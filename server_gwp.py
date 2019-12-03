@@ -106,7 +106,7 @@ if __name__ == '__main__':
 
     # Read the network into Memory
     print("Initializing Model")
-    caffe.set_device(1)
+    caffe.set_device(0)
     caffe.set_mode_gpu()
     # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     net = caffe.Net(protoFile, weightsFile, caffe.TEST)
