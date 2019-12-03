@@ -63,9 +63,9 @@ def forward(frame):
     # Set the prepared object as the input blob of the network
     # print(inpBlob.shape)
     # print(net.blobs)
-    net.blobs['image'].reshape(1,3,inHeight,inWidth)
-    net.blobs['image'] = inpBlob
-    # net.setInput(inpBlob)
+   # net.blobs['image'].reshape(1,3,inHeight,inWidth)
+    #net.blobs['image'].data[...] = inpBlob
+    net.setInput(inpBlob)
 
     out = net.forward()
     # inpBlob = torch.from_numpy(inpBlob).cuda()
@@ -140,11 +140,11 @@ if __name__ == '__main__':
     pth_file = 'pose/coco/deeppose-COCO.pth'
 
     # Read the network into Memory
-    # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     print("Initializing Model")
     caffe.set_device(0)
     caffe.set_mode_gpu()
-    net = caffe.Net(protoFile, weightsFile, caffe.TEST)
+    net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
+    # net = caffe.Net(protoFile, weightsFile, caffe.TEST)
     # checkpoint = torch.load(pth_file, map_location='cuda:0')['model_state']
     # #print(checkpoint)
     # model = DeepPose(17)
