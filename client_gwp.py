@@ -10,19 +10,6 @@ IMG_PORT = 8098
 ARR_PORT = 8097
 
 
-# cap=cv2.VideoCapture(0)
-# clientsocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-# clientsocket.connect((HOST, PORT))
-# while True:
-#     ret,frame=cap.read()
-#     # Serialize frame
-#     data = pickle.dumps(frame)
-#
-#     # Send message length first
-#     message_size = struct.pack("L", len(data)) ### CHANGED
-#
-#     # Then data
-#     clientsocket.sendall(message_size + data)
 body_parts = ['Nose', 'Neck', 'Right Shoulder', 'Right Elbow', 'Right Wrist',
               'Left Shoulder', 'Left Elbow', 'Left Wrist', 'Right Hip', 'Right Knee', 'Right Ankle',
               'Left Hip', 'Left Knee', 'LAnkle', 'Right Eye', 'Left Eye', 'Right Ear', 'Left Ear', 'Background']
