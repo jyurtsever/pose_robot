@@ -6,8 +6,8 @@ import pickle
 import struct ### new code
 import imagiz
 HOST = '128.32.112.46'
-IMG_PORT = 8099
-ARR_PORT = 8098
+IMG_PORT = 8042
+ARR_PORT = 8043
 
 
 # cap=cv2.VideoCapture(0)
@@ -36,7 +36,7 @@ def main():
     while True:
         try:
             r, frame = vid.read()
-            frame = rescale(frame, .8)
+            frame = rescale(frame, .6)
             if r:
                 r, image = cv2.imencode('.jpg', frame, encode_param)
                 client.send(image)
