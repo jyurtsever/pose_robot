@@ -13,7 +13,7 @@ import cv2
 HOST = ''
 IMG_PORT = 8098
 ARR_PORT = 8097
-
+ARR_PORT_2 = 8099
 body_parts = ['Nose', 'Neck', 'Right Shoulder', 'Right Elbow', 'Right Wrist',
               'Left Shoulder', 'Left Elbow', 'Left Wrist', 'Right Hip', 'Right Knee', 'Right Ankle',
               'Left Hip', 'Left Knee', 'LAnkle', 'Right Eye', 'Left Eye', 'Right Ear', 'Left Ear', 'Background']
@@ -79,8 +79,11 @@ def main():
             frame = cv2.imdecode(message.image,1)
             ###Send
             out = forward(frame)
-            data_string = pickle.dumps(get_points(out, frame))
+            pts = get_points(out, frame)
+            data_string = pickle.dumps(pts)
+            data_string_2 = pickle.dumps(pts, protocol=2)
             conn.send(data_string)
+            conn2.send(data_string_2)
             cv2.waitKey(1)
         except KeyboardInterrupt:
             s.close()
@@ -90,9 +93,11 @@ def main():
 
 if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
 
     s.bind((HOST, ARR_PORT))
+    s2.bind((HOST, ARR_PORT_2))
     print('Socket bind complete')
 
     # Specify the paths for the 2 files
@@ -118,6 +123,8 @@ if __name__ == '__main__':
     # model.eval()
     print("Model created")
     s.listen(1)
+    s2.listen(1)
     print('Socket now listening')
     conn, addr = s.accept()
+    conn2, addr2 = s2.accept()
     main()
