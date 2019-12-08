@@ -58,12 +58,6 @@ def get_points(out, frame):
         y = (inHeight * point[1]) / H
 
         if prob > threshold:
-            # cv2.circle(frame, (int(x), int(y)), inWidth // 50, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
-            # cv2.putText(frame, "{}".format(body_parts[i]), (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, .4, (0, 0, 255),
-            #             1,
-            #             lineType=cv2.LINE_AA)
-
-            # Add the point to the list if the probability is greater than the threshold
             points.append((int(x), int(y)))
         else:
             points.append(None)
@@ -113,14 +107,7 @@ if __name__ == '__main__':
     print("Initializing Model")
     caffe.set_device(0)
     caffe.set_mode_gpu()
-    # net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
     net = caffe.Net(protoFile, weightsFile, caffe.TEST)
-    # checkpoint = torch.load(pth_file, map_location='cuda:0')['model_state']
-    # #print(checkpoint)
-    # model = DeepPose(17)
-    # model.load_state_dict(checkpoint)
-    # model.cuda()
-    # model.eval()
     print("Model created")
     s.listen(1)
     s2.listen(1)
